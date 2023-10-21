@@ -99,7 +99,7 @@ def train(train_x, train_y, valid_x, valid_y, model, optimizer, scheduler, epoch
 				writer.add_scalar('valid_loss', valid_loss, (idx + 1) / 50)
 		if epoch < 6:
 			scheduler.step()
-		writer.close()
+		# writer.close()
 		saved_state = {'epoch': epoch + 1, 'lr': optimizer.param_groups[0]['lr'],
 					   'state_dict': model.state_dict()}
 		torch.save(saved_state, os.path.join(model_dir, 'params_%d.pkl' % epoch))
