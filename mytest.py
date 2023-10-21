@@ -12,10 +12,10 @@ import utils
 parser = argparse.ArgumentParser(description='Selective Encoding for Abstractive Sentence Summarization in pytorch')
 
 parser.add_argument('--n_test', type=int, default=1961, help='Number of test data (up to 1951 in gigaword)')
-parser.add_argument('--input_file', type=str, default="sumdata/Giga/input.txt", help='input file')
+parser.add_argument('--input_file', type=str, default="sumdata/train/test.article.txt", help='input file')
 parser.add_argument('--output_dir', type=str, default="sumdata/Giga/systems/", help='')
 parser.add_argument('--batch_size', type=int, default=64, help='Mini batch size [default: 32]')
-parser.add_argument('--ckpt_file', type=str, default='./ckpts/params_0.pkl', help='model file path')
+parser.add_argument('--ckpt_file', type=str, default='kaggle_ckpt/SEASS/ckpts/params_9.pkl', help='model file path')
 parser.add_argument('--search', type=str, default='greedy', help='greedy/beam')
 parser.add_argument('--beam_width', type=int, default=12, help='beam search width')
 args = parser.parse_args()
@@ -123,10 +123,11 @@ def main():
 	N_TEST = args.n_test
 	BATCH_SIZE = args.batch_size
 
-	# vocab = json.load(open('sumdata/vocab.json'))
+	vocab = json.load(open('sumdata/vocab.json'))
 
-	embedding_path = '/home/kaiying/coco/embeddings/giga-256d.bin'
-	vocab, embeddings = utils.load_word2vec_embedding(embedding_path)
+	# embedding_path = '/home/kaiying/coco/embeddings/giga-256d.bin'
+	# vocab, embeddings = utils.load_word2vec_embedding(embedding_path)
+	embeddings = None
 
 	test_x = BatchManager(load_data(args.input_file, vocab, N_TEST), BATCH_SIZE)
 	# model = Seq2SeqAttention(len(vocab), EMB_DIM, HID_DIM, BATCH_SIZE, vocab, max_trg_len=25).cuda()

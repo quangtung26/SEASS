@@ -122,7 +122,7 @@ def main():
 
 	vocab_file = os.path.join(data_dir, "vocab.json")
 	if not os.path.exists(vocab_file):
-		utils.build_vocab([TRAIN_X, TRAIN_Y], vocab_file, n_vocab=80000)
+		utils.build_vocab([TRAIN_X, TRAIN_Y], vocab_file, n_vocab=50000)
 	vocab = json.load(open(vocab_file))
 		
 	# embedding_path = '/home/kaiying/coco/embeddings/giga-256d.bin'
