@@ -12,3 +12,7 @@
 *.bak
 *.pyc
 *~
+
+run.sh
+/kaggle_ckpt
+/sumdata.zip

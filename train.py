@@ -12,11 +12,11 @@ import logging
 parser = argparse.ArgumentParser(description='Selective Encoding for Abstractive Sentence Summarization in DyNet')
 
 parser.add_argument('--n_epochs', type=int, default=10, help='Number of epochs [default: 3]')
-parser.add_argument('--n_train', type=int, default=189651,
-					help='Number of training data (up to 3803957 in gigaword) [default: 3803957]')
-parser.add_argument('--n_valid', type=int, default=1951,
-					help='Number of validation data (up to 189651 in gigaword) [default: 189651])')
-parser.add_argument('--batch_size', type=int, default=8, help='Mini batch size [default: 32]')
+parser.add_argument('--n_train', type=int, default=300000,
+					help='Number of training data (up to 300000 in gigaword) [default: 3803957]')
+parser.add_argument('--n_valid', type=int, default=70753,
+					help='Number of validation data (up to 70753 in gigaword) [default: 189651])')
+parser.add_argument('--batch_size', type=int, default=2, help='Mini batch size [default: 32]')
 parser.add_argument('--ckpt_file', type=str, default='./ckpts/params_0.pkl')
 parser.add_argument('--data_dir', type=str, default='sumdata/')
 args = parser.parse_args()
@@ -136,6 +136,7 @@ def main():
 	valid_x = BatchManager(load_data(VALID_X, vocab, N_VALID), BATCH_SIZE)
 	valid_y = BatchManager(load_data(VALID_Y, vocab, N_VALID), BATCH_SIZE)
 
+
 	model = Model(vocab, emb_dim=256, hid_dim=512, embeddings=None).cuda()
 	# model.embedding_look_up.to(torch.device("cpu"))
 
@@ -148,7 +149,7 @@ def main():
 
 	optimizer = torch.optim.Adam(model.parameters(), lr=saved_state['lr'])
 	scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.5)
-	scheduler.step()
+	# scheduler.step()
 
 	train(train_x, train_y, valid_x, valid_y, model, optimizer,
 		  scheduler, saved_state['epoch'], N_EPOCHS)
