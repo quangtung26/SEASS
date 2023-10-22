@@ -11,11 +11,11 @@ import utils
 
 parser = argparse.ArgumentParser(description='Selective Encoding for Abstractive Sentence Summarization in pytorch')
 
-parser.add_argument('--n_test', type=int, default=1961, help='Number of test data (up to 1951 in gigaword)')
+parser.add_argument('--n_test', type=int, default=1936, help='Number of test data (up to 1951 in gigaword)')
 parser.add_argument('--input_file', type=str, default="sumdata/train/test.article.txt", help='input file')
 parser.add_argument('--output_dir', type=str, default="sumdata/Giga/systems/", help='')
 parser.add_argument('--batch_size', type=int, default=64, help='Mini batch size [default: 32]')
-parser.add_argument('--ckpt_file', type=str, default='kaggle_ckpt/SEASS/ckpts/params_9.pkl', help='model file path')
+parser.add_argument('--ckpt_file', type=str, default='kaggle_ckpt/draft/SEASS/ckpts/params_19.pkl', help='model file path')
 parser.add_argument('--search', type=str, default='greedy', help='greedy/beam')
 parser.add_argument('--beam_width', type=int, default=12, help='beam search width')
 args = parser.parse_args()
@@ -125,7 +125,7 @@ def main():
 
 	vocab = json.load(open('sumdata/vocab.json'))
 
-	# embedding_path = '/home/kaiying/coco/embeddings/giga-256d.bin'
+	# embedding_path = 'pretrain.model'
 	# vocab, embeddings = utils.load_word2vec_embedding(embedding_path)
 	embeddings = None
 
@@ -137,6 +137,7 @@ def main():
 	file = args.ckpt_file
 	if os.path.exists(file):
 		saved_state = torch.load(file)
+		print(type(saved_state['state_dict']))
 		model.load_state_dict(saved_state['state_dict'])
 		print('Load model parameters from %s' % file)
 
@@ -144,5 +145,6 @@ def main():
 
 
 if __name__ == '__main__':
+
 	main()
 

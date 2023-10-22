@@ -142,3 +142,17 @@ class Model(nn.Module):
         outputs = self.maxout(embeds, c_t, hidden).squeeze()  # comment this line to remove maxout
         logit = self.decoder2vocab(outputs).squeeze()
         return logit, hidden
+
+
+if __name__ == '__main__':
+    import json
+
+    vocab_file = "sumdata/vocab.json"
+    vocab = json.load(open(vocab_file))
+
+    model = Model(vocab, emb_dim=256, hid_dim=512, embeddings=None)
+
+
+    # print(model.embedding_look_up.parameters())
+
+    # torch.save(model.embedding_look_up.weight, 'pretrain.model')

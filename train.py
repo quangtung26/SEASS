@@ -128,10 +128,9 @@ def main():
 
 	vocab = json.load(open(vocab_file))
 		
-	# embedding_path = '/home/kaiying/coco/embeddings/giga-256d.bin'
+	# embedding_path = 'kaggle_ckpt/SEASS/ckpts/params_0.pkl'
 	# vocab, embeddings = utils.load_word2vec_embedding(embedding_path)
 
-	print(len(vocab))
 
 	train_x = BatchManager(load_data(TRAIN_X, vocab, N_TRAIN), BATCH_SIZE)
 	train_y = BatchManager(load_data(TRAIN_Y, vocab, N_TRAIN), BATCH_SIZE)

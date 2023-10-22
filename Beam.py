@@ -89,10 +89,12 @@ class Beam(object):
 
         # bestScoresId is flattened beam x word array, so calculate which
         # word and beam each score came from
-        prev_k = bestScoresId / num_words
+        prev_k = bestScoresId // num_words
         self.prevKs.append(prev_k)
         self.nextYs.append(bestScoresId - prev_k * num_words)
         
+        # print(prev_k)
+
         self.hidden = hidden[:,prev_k,:] # hidden: 1 * k * hid_dim
 
         # End condition is when top-of-beam is EOS.

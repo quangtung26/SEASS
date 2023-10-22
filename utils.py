@@ -12,6 +12,7 @@ start_tok = "<s>"
 end_tok = "</s>"
 unk_tok = "<unk>"
 pad_tok = "<pad>"
+
 """ Caution:
 In training data, unk_tok='<unk>', but in test data, unk_tok='UNK'.
 This is reasonable, because if the unk_tok you predict is the same as the
